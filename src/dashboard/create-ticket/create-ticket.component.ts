@@ -8,9 +8,10 @@ import { AuthService } from '../../service/auth.service';
   styleUrl: './create-ticket.component.css'
 })
 export class CreateTicketComponent {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) { 
+  }
 
   logout(): void {
-    this.authService.logout();
+    this.authService.logout(); // Envía el refresh token al logout
   }
 }
