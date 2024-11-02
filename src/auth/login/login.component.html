@@ -7,7 +7,7 @@
             <div class="col-12 col-md-6">
               <img
                 class="img-fluid rounded-start w-100 h-100 object-fit-cover"
-                src="assets/fondo-manos.png" 
+                src="assets/fondo-manos.png"
                 alt="Fondo Manos Equipo"
               />
             </div>
@@ -40,19 +40,21 @@
                     </div>
                   </div>
 
-                  <form action="#!">
+                  <form class="form" [formGroup]="loginForm" (ngSubmit)="loginUser()">
                     <div class="row gy-3 overflow-hidden">
                       <div class="col-12">
                         <div class="form-floating mb-3">
                           <input
-                            type="email"
+                            type="text"
                             class="form-control"
-                            name="email"
-                            id="email"
-                            placeholder="name@example.com"
+                            formControlName="usuario"
+                            id="username"
+                            placeholder="example"
                             required
                           />
-                          <label for="email" class="form-label">Email</label>
+                          <label for="username" class="form-label"
+                            >Usuario</label
+                          >
                         </div>
                       </div>
                       <div class="col-12">
@@ -60,7 +62,7 @@
                           <input
                             type="password"
                             class="form-control"
-                            name="password"
+                            formControlName="password"
                             id="password"
                             value=""
                             placeholder="Password"
