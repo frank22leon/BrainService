@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -9,32 +10,40 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   loginForm!: FormGroup;
   username = '';
   password = '';
+  showPassword: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder,) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  NgOnInit(){ 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  NgOnInit() {
     if (this.authService.isAuthenticated()) {
       console.log('autenticado');
     } else {
       console.log('NO autenticado');
     }
-    
   }
 
   loginUser(): void {
@@ -43,10 +52,10 @@ export class LoginComponent {
       clave: this.loginForm.value.password,
     };
 
-    this.authService.login(formData).subscribe(response => {
-      console.log(response);  // Agrega esto para ver la respuesta completa
+    this.authService.login(formData).subscribe((response) => {
+      console.log(response); // Agrega esto para ver la respuesta completa
       if (response && response.isSuccess) {
-        this.router.navigate(['/dashboard/create-ticket']);  
+        this.router.navigate(['/dashboard/create-ticket']);
       } else {
         alert('Usuario o contraseña incorrectos');
       }

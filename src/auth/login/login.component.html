@@ -1,8 +1,8 @@
-<section class="bg-light p-3 p-md-4 p-xl-5">
+<section class="bg-light p-3 p-md-4 p-xl-5 ">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-xxl-11">
-        <div class="card border-light-subtle shadow-sm">
+        <div class="card border-light-subtle shadow">
           <div class="row g-0">
             <div class="col-12 col-md-6">
               <img
@@ -40,7 +40,11 @@
                     </div>
                   </div>
 
-                  <form class="form" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+                  <form
+                    class="form"
+                    [formGroup]="loginForm"
+                    (ngSubmit)="loginUser()"
+                  >
                     <div class="row gy-3 overflow-hidden">
                       <div class="col-12">
                         <div class="form-floating mb-3">
@@ -60,7 +64,7 @@
                       <div class="col-12">
                         <div class="form-floating mb-3">
                           <input
-                            type="password"
+                            [type]="showPassword ? 'text' : 'password'"
                             class="form-control"
                             formControlName="password"
                             id="password"
@@ -71,6 +75,20 @@
                           <label for="password" class="form-label"
                             >Password</label
                           >
+                          <span
+                            class="position-absolute top-50 end-0 translate-middle-y pe-3"
+                            style="cursor: pointer"
+                            (click)="togglePasswordVisibility()"
+                          >
+                            <i
+                              class="bi"
+                              [ngClass]="
+                                showPassword
+                                  ? 'fa-regular fa-eye-slash'
+                                  : 'fa-regular fa-eye'
+                              "
+                            ></i>
+                          </span>
                         </div>
                       </div>
                       <div class="col-12">
