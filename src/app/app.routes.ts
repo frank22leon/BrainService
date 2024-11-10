@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '../guard/auth.guard';
-import { LoginComponent } from '../auth/login/login.component';
-import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
-import { CreateTicketComponent } from '../dashboard/create-ticket/create-ticket.component';
-import { ViewTicketsComponent } from '../dashboard_TI/view-tickets/view-tickets.component';
-import { RegisterUsersComponent } from '../admin_users/register-users/register-users.component';
+import { LoginComponent } from '../components/login/login.component';
+import { ResetPasswordComponent } from '../components/reset-password/reset-password.component';
+import { CreateTicketComponent } from '../components/create-ticket/create-ticket.component';
+import { ViewTicketsComponent } from '../components/view-tickets/view-tickets.component';
+import { RegisterUsersComponent } from '../components/register-users/register-users.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
 export const routes: Routes = [
