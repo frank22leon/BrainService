@@ -5,14 +5,22 @@ import { ResetPasswordComponent } from '../auth/reset-password/reset-password.co
 import { CreateTicketComponent } from '../dashboard/create-ticket/create-ticket.component';
 import { ViewTicketsComponent } from '../dashboard_TI/view-tickets/view-tickets.component';
 import { RegisterUsersComponent } from '../admin_users/register-users/register-users.component';
-
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'reset-password', component: ResetPasswordComponent,canActivate: [authGuard] },
-    { path: 'dashboard/create-ticket', component: CreateTicketComponent, canActivate: [authGuard] },
-    { path: 'dashboard_TI/view-tickets', component: ViewTicketsComponent, canActivate: [authGuard] },
-    { path: 'admin/register-users', component: RegisterUsersComponent, canActivate: [authGuard] },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: '**', redirectTo: '/login' }
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+    children: [
+      { path: 'reset-password', component: ResetPasswordComponent },
+      { path: 'create-ticket', component: CreateTicketComponent },
+      { path: 'view-tickets', component: ViewTicketsComponent },
+      { path: 'register-users', component: RegisterUsersComponent },
+      { path: '', redirectTo: 'create-ticket', pathMatch: 'full' }, 
+    ],
+  },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];

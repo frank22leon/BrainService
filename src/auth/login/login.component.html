@@ -1,105 +1,105 @@
-<section class="bg-light p-3 p-md-4 p-xl-5 ">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12 col-xxl-11">
-        <div class="card border-light-subtle shadow">
-          <div class="row g-0">
-            <div class="col-12 col-md-6">
-              <img
-                class="img-fluid rounded-start w-100 h-100 object-fit-cover"
-                src="assets/fondo-manos.png"
-                alt="Fondo Manos Equipo"
-              />
-            </div>
-            <div
-              class="col-12 col-md-6 d-flex align-items-center justify-content-center"
-            >
-              <div class="col-12 col-lg-11 col-xl-10">
-                <div class="card-body p-3 p-md-4 p-xl-5">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="mb-5">
-                        <div class="text-center mb-4">
-                          <a href="#!">
+<div class="fondo">
+  <section class="p-3 p-md-4 p-xl-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xxl-11">
+          <div class="card border-0 rounded-4 shadow">
+            <div class="row g-0">
+              <div class="col-12 col-md-6">
+                <img
+                  class="img-fluid rounded-start-4 d-none d-md-block w-100 h-100 object-fit-cover"
+                  src="assets/fondo_computadora.jpg"
+                  alt="Fondo Manos Equipo"
+                />
+              </div>
+              <div
+                class="col-12 col-md-6 d-flex align-items-center justify-content-center"
+              >
+                <div class="col-12 col-lg-11 col-xl-10">
+                  <div class="card-body p-3 p-md-4 p-xl-5">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="mb-5">
+                          <div class="text-center mb-4">
                             <img
-                              src="assets/logo.jpg"
+                              src="assets/logo_ideas.png"
                               alt="BootstrapBrain Logo"
-                              width="175"
+                              width="250"
                               height="175"
                             />
-                          </a>
+                          </div>
+                          <h4 class="text-center pb-3">
+                            ¡Bienvenido de nuevo a BrainService!
+                          </h4>
+                          <p class="text-center fst-italic">
+                            Genera y gestiona tickets de soporte para resolver
+                            problemas en diversas áreas de tu empresa.
+                          </p>
                         </div>
-                        <h4 class="text-center pb-3">
-                          ¡Bienvenido de nuevo a BrainService!
-                        </h4>
-                        <p class="text-center fst-italic">
-                          Genera y gestiona tickets de soporte para resolver
-                          problemas en diversas áreas de tu empresa.
-                        </p>
                       </div>
                     </div>
-                  </div>
 
-                  <form
-                    class="form"
-                    [formGroup]="loginForm"
-                    (ngSubmit)="loginUser()"
-                  >
-                    <div class="row gy-3 overflow-hidden">
-                      <div class="col-12">
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
-                            class="form-control"
-                            formControlName="usuario"
-                            id="username"
-                            placeholder="example"
-                            required
-                          />
-                          <label for="username" class="form-label"
-                            >Usuario</label
-                          >
+                    <form
+                      class="form"
+                      [formGroup]="loginForm"
+                      (ngSubmit)="loginUser()"
+                    >
+                      <div class="row gy-3 overflow-hidden border-dark">
+                        <div class="col-12">
+                          <div class="form-floating mb-3">
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="usuario"
+                              id="username"
+                              placeholder="example"
+                              required
+                            />
+                            <label for="username" class="form-label"
+                              >Usuario</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-floating mb-3">
+                            <input
+                              [type]="showPassword ? 'text' : 'password'"
+                              class="form-control"
+                              formControlName="password"
+                              id="password"
+                              value=""
+                              placeholder="Password"
+                              required
+                            />
+                            <label for="password" class="form-label"
+                              >Password</label
+                            >
+                            <span
+                              class="position-absolute top-50 end-0 translate-middle-y pe-3 btn-dark"
+                              style="cursor: pointer"
+                              (click)="togglePasswordVisibility()"
+                            >
+                              <i
+                                class="bi"
+                                [ngClass]="
+                                  showPassword
+                                    ? 'fa-regular fa-eye-slash'
+                                    : 'fa-regular fa-eye'
+                                "
+                              ></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="d-grid">
+                            <button class="btn btn-dark btn-lg" type="submit">
+                              Iniciar Sesión
+                            </button>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-floating mb-3">
-                          <input
-                            [type]="showPassword ? 'text' : 'password'"
-                            class="form-control"
-                            formControlName="password"
-                            id="password"
-                            value=""
-                            placeholder="Password"
-                            required
-                          />
-                          <label for="password" class="form-label"
-                            >Password</label
-                          >
-                          <span
-                            class="position-absolute top-50 end-0 translate-middle-y pe-3"
-                            style="cursor: pointer"
-                            (click)="togglePasswordVisibility()"
-                          >
-                            <i
-                              class="bi"
-                              [ngClass]="
-                                showPassword
-                                  ? 'fa-regular fa-eye-slash'
-                                  : 'fa-regular fa-eye'
-                              "
-                            ></i>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="d-grid">
-                          <button class="btn btn-dark btn-lg" type="submit">
-                            Iniciar Sesión
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,5 +107,5 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>

@@ -1,0 +1,114 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fondo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: radial-gradient(circle at 20% 20%, rgba(221, 239, 150, 0.5), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(255, 222, 89, 0.5), transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(217, 217, 217, 0.4), transparent 35%),
+                radial-gradient(circle at 30% 70%, rgba(173, 226, 249, 0.4), transparent 40%),
+                radial-gradient(circle at 70% 40%, rgba(198, 184, 226, 0.4), transparent 30%);
+    background-size: 300% 300%;
+    animation: smokeEffect 5s ease-in-out infinite;
+  }
+  
+  /* Animación de movimiento suave para simular humo */
+  @keyframes smokeEffect {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 50% 50%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    75% {
+      background-position: 50% 50%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
+  
+  
+  
+  
+/*   .fondo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url(../../assets/prueba.jpg);
+    background-size: cover;
+
+  }
+  
+  .fondo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    filter: blur(4px);
+    z-index: 1; 
+  } */
+  
+  .container {
+    position: relative;
+    z-index: 2; /* Asegura que el contenido esté por encima del fondo */
+  }
+  
+  .card {
+    animation: fadeIn 1s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+ /*   .btn-custom {
+    background-color: #a391c7; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease; 
+  }
+  
+  
+  .btn-custom:hover {
+    background-color: #66497d; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-2px);
+  }  */
+  
+  .btn-custom:focus {
+    outline: none; /* Elimina el borde por defecto del foco */
+    box-shadow: 0 0 0 4px rgba(207, 154, 200, 0.6); /* Efecto de foco con un halo */
+  }
+
+ 
+/* .position-absolute i {
+    color: #a391c7; 
+    transition: color 0.3s ease; 
+  }
+  */
+ 
+  .position-absolute i:hover {
+    color: #808080; 
+  }
+  
+ 
