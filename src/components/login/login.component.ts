@@ -52,12 +52,25 @@ export class LoginComponent {
       clave: this.loginForm.value.password,
     };
 
-    this.authService.login(formData).subscribe((response) => {
-      console.log(response); // Agrega esto para ver la respuesta completa
-      if (response && response.isSuccess) {
-        this.router.navigate(['/dashboard/create-ticket']);
-      } else {
-        alert('Usuario o contraseña incorrectos');
+    this.authService.login(formData).subscribe({
+      next: (response) => {
+        console.log(response); // Para ver la respuesta completa en consola
+
+        if (response && response.isSuccess) {
+          // Si isSuccess es true, permite el acceso
+          this.router.navigate(['/dashboard/create-ticket']);
+        } else if (response && !response.isSuccess) {
+          // Si isSuccess es false, indica usuario o contraseña incorrectos
+          alert('Usuario o contraseña incorrectos');
+        } else {
+          // Si no hay respuesta válida, indica error de conexión
+          alert('Error de conexión. Intente nuevamente más tarde.');
+        }
+      },
+      error: (err) => {
+        console.error(err); // Mostrar el error en consola para depuración
+        // Mensaje de error de conexión
+        alert('Error de conexión. Intente nuevamente más tarde.');
       }
     });
   }

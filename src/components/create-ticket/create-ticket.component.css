@@ -1,0 +1,17 @@
+.ticket-form-section {
+    background-color: #f8f9fa; /* Color de fondo suave */
+    padding: 2rem; /* Espaciado alrededor */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #dee2e6; /* Borde alrededor de la sección */
+  }
+  
+  .ticket-form-section .card {
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    border-radius: 8px; /* Bordes redondeados de la tarjeta */
+    padding: 1.5rem;
+  }
+  
+  .ticket-form-section .card-body {
+    padding: 2rem; /* Espacio dentro de la tarjeta */
+  }
+  
