@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
+  private apiUrl = 'https://localhost:7159/api';// Cambia la URL según corresponda
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
+
+  createTicket(ticketData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Tickets/CreateTicket`, ticketData);
+  }
+  // Método para obtener las categorías
+  getCategories(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Tickets/GetCategories`);
+  }
+
 }

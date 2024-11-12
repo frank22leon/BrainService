@@ -1,11 +1,41 @@
-<!-- dashboard.component.html -->
-<p>dashboard works!</p>
+<div class="dashboard-container d-flex">
+  <!-- Sidebar Menu -->
+  <aside class="sidebar bg-dark text-white p-3" style="width: 250px">
+    <div class="sidebar-header text-center mb-4">
+      <h4>BrainService</h4>
+    </div>
+    <nav class="nav flex-column">
+      <!-- Botones para navegar entre las vistas hijas -->
+      <button routerLink="create-ticket">Creación de Tickets</button>
+      <button routerLink="view-tickets">Panel de Tickets</button>
+      <button routerLink="view-tickets-user">Mis Tickets</button>
+      <button routerLink="register-users">Registro de Usuarios</button>
+      <button routerLink="reset-password">Resetear Contraseña</button>
+      <button (click)="logout()">Cerrar Sesión</button>
+    </nav>
+  </aside>
 
-<!-- Botones para navegar entre las vistas hijas -->
-<button routerLink="create-ticket">Creación de Tickets</button>
-<button routerLink="view-tickets">Panel de Tickets</button>
-<button routerLink="register-users">Registro de Usuarios</button>
-<button routerLink="reset-password">Resetear Contraseña</button>
+  <!-- Main Content Area -->
+  <div class="main-content flex-grow-1">
+    <!-- Top Bar -->
+    <header
+      class="top-bar d-flex justify-content-end align-items-center p-3 border-bottom"
+    >
 
-<!-- Contenedor para cargar los componentes hijos -->
-<router-outlet></router-outlet>
+
+      <!-- User Profile Options -->
+      <div class="user-profile d-flex align-items-center">
+        <i class="fa-regular fa-bell pe-3"></i>
+        <span class="text-dark fs-5">{{ usuario }}</span>
+        <!-- Muestra el nombre de usuario -->
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <section class="content p-4">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </div>
+</div>

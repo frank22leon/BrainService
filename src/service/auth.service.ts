@@ -22,9 +22,11 @@ export class AuthService {
       tap((response) => {
         if (response.isSuccess) {
           if (isPlatformBrowser(this.platformId)) {
-            // Guardamos el token y el refresh token en el localStorage
-            localStorage.setItem('token', response.token); // Guarda el access token
-            localStorage.setItem('refreshToken', response.refreshToken); // Guarda el refresh token
+            // Guarda el token y el refresh token en el localStorage
+            sessionStorage.setItem('token', response.token); // Guarda el access token
+            sessionStorage.setItem('refreshToken', response.refreshToken); // Guarda el refresh token
+            sessionStorage.setItem('usuario', response.usuario);
+            sessionStorage.setItem('idUsuario', response.idUser);  // Guarda el nombre de usuario
           }
         }
       }),
@@ -36,7 +38,7 @@ export class AuthService {
   }
 
   logout(): void {
-    const refreshToken = localStorage.getItem('refreshToken'); // Recupera el refresh token
+    const refreshToken = sessionStorage.getItem('refreshToken'); // Recupera el refresh token
 
     // Comprueba si el refresh token existe
     if (!refreshToken) {
@@ -56,31 +58,58 @@ export class AuthService {
       .subscribe({
         next: () => {
           if (isPlatformBrowser(this.platformId)) {
-            // Eliminar ambos tokens del localStorage al cerrar sesión
-            localStorage.removeItem('token');
-            localStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('usuario');
+            sessionStorage.removeItem('idUsuario'); 
           }
-          this.router.navigate(['/login']); // Redirigir a la página de login
+          this.router.navigate(['/login']); 
         },
         error: (err) => {
           console.error('Error al cerrar sesión:', err);
-          // Manejo de errores en el cierre de sesión, si es necesario
         },
       });
   }
 
   isAuthenticated(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       return !!token; // Retorna true si el token existe
     }
     return false; // Retorna false si no está en el navegador
   }
 
   refreshToken(): Observable<any> {
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = sessionStorage.getItem('refreshToken');
     return this.http.post<any>(`${this.apiUrl}/Acceso/RefreshToken`, {
       refreshToken,
     });
   }
+
+  getUsuario(): string | null {
+    return isPlatformBrowser(this.platformId) ? sessionStorage.getItem('usuario') : null;
+  }
+
+  getUsuarioId(): string | null {
+    return isPlatformBrowser(this.platformId) ? sessionStorage.getItem('idUsuario') : null;
+  }
+
+  getRoles(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Acceso/Roles`);
+  }
+
+  registerUser(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Acceso/Registrarse`, data).pipe(
+      tap((response) => {
+        if (response.isSuccess) {
+          console.log('Usuario registrado con éxito:', response);
+        }
+      }),
+      catchError((error) => {
+        console.error('Error al registrar usuario:', error);
+        return of(null);
+      })
+    );
+  }
+  
 }
