@@ -1,16 +1,122 @@
-.dashboard-container {
-    display: flex;
-    min-height: 100vh;
+a {
+  cursor: pointer;
+  text-decoration: none; 
+}
+
+li {
+  list-style-type: none;
+}
+
+.wrapper {
+  align-items: stretch;
+  display: flex;
+  width: 100%;
+}
+
+#sidebar {
+  max-width: 240px; /* Reducción del ancho del menú */
+  min-width: 240px; /* Reducción del ancho del menú */
+  background: #1b1f3c;
+  transition: all 0.35s ease-in-out;
+  overflow-x: hidden; /* Asegura que no haya desbordamientos horizontales */
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 0;
+  overflow: hidden;
+  transition: all 0.35s ease-in-out;
+  width: 100%;
+  background: #31324e;
+}
+
+/* Sidebar Elements */
+
+.sidebar-logo {
+  padding: 1.15rem;
+  margin-left: 0.6rem;
+}
+
+.sidebar-logo a {
+  color: #e9ecef;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.sidebar-header {
+  color: #e9ecef;
+  font-size: 0.75rem;
+  padding: 1.5rem 1.5rem .375rem;
+  margin-left: 0.4rem;
+}
+
+a.sidebar-link {
+  padding: .5rem 1.25rem; /* Ajuste del padding para evitar que se desborde */
+  color: #e9ecef;
+  position: relative;
+  display: block;
+  font-size: 0.875rem;
+  border-radius: 20px; /* Efecto ovalado */
+  transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Transición suave */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+  width: 90%; 
+  margin-left: 0.6rem;
+  /* Asegura que el enlace ocupe todo el ancho disponible */
+}
+
+/* Efecto Hover para los enlaces de la barra lateral */
+a.sidebar-link:hover {
+  background-color: #007bff; /* Fondo azul suave cuando el mouse pasa sobre el enlace */
+  color: white; /* Color del texto blanco */
+  transform: scale(1.05); /* Aumenta el tamaño ligeramente para darle un efecto elegante */
+}
+
+/* Efecto Hover para los íconos dentro de los enlaces */
+a.sidebar-link:hover i {
+  color: white; /* Cambia el color de los íconos a blanco cuando se pasa el cursor sobre el enlace */
+}
+
+.sidebar {
+  position: relative;
+  height: 100vh;
+}
+
+.sidebar-item.logout {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Opción para que ocupe todo el ancho disponible */
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+  overflow: hidden; /* Asegura que no haya desbordamiento */
+}
+
+.notification-icon { 
+  color: #e9ecef;
+}
+
+.user-text { 
+  color: #e9ecef;
+}
+
+.navbar-expand .navbar-nav {
+  margin-left: auto;
+}
+
+#sidebar.collapsed {
+  margin-left: -240px; /* Asegurando que al colapsar, el menú no se desborde */
+}
+
+@media (max-width: 767.98px) { 
+  .navbar {
+    width: 100vw;
   }
-  
-  .sidebar {
-    min-height: 100vh;
-  }
-  
-  .top-bar {
-    background-color: #f8f9fa;
-  }
-  
-  .content {
-    background-color: #ffffff;
-  }
+}

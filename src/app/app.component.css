@@ -1,5 +1,12 @@
-html, body {
-    margin: 0;
-    padding: 0; 
-    height: 100vh;
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+    font-size: 0.875rem;
+    opacity:1;
+    overflow-y:scroll;
+    margin:0;
 }

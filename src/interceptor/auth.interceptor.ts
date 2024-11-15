@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
   const authService = inject(AuthService); // Inyecta el servicio de autenticación
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   // Clona la solicitud para añadir el header de autorización
   const clonedReq = token ? req.clone({
@@ -24,7 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
           switchMap((response: any) => {
             if (response && response.token) {
               // Si el refresco es exitoso, guarda el nuevo token y repite la solicitud original
-              localStorage.setItem('token', response.token);
+              sessionStorage.setItem('token', response.token);
               const newReq = clonedReq.clone({
                 setHeaders: {
                   Authorization: `Bearer ${response.token}`

@@ -9,7 +9,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,7 @@ import {
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  message: string = '';
   loginForm!: FormGroup;
   username = '';
   password = '';
@@ -27,7 +28,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notificationService: NotificationService
   ) {
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
@@ -61,16 +63,18 @@ export class LoginComponent {
           this.router.navigate(['/dashboard/create-ticket']);
         } else if (response && !response.isSuccess) {
           // Si isSuccess es false, indica usuario o contraseña incorrectos
-          alert('Usuario o contraseña incorrectos');
+          this.message = 'Usuario o contraseña incorrectos';
+          this.notificationService.showError(this.message);
         } else {
-          // Si no hay respuesta válida, indica error de conexión
-          alert('Error de conexión. Intente nuevamente más tarde.');
+          this.message = 'Error de conexión. Intente nuevamente más tarde.';
+          this.notificationService.showError(this.message);
         }
       },
       error: (err) => {
         console.error(err); // Mostrar el error en consola para depuración
         // Mensaje de error de conexión
-        alert('Error de conexión. Intente nuevamente más tarde.');
+        this.message = 'Error de conexión. Intente nuevamente más tarde: ' + err;
+          this.notificationService.showError(this.message);
       }
     });
   }
