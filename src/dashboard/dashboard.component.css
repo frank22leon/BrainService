@@ -91,14 +91,6 @@ a.sidebar-link:focus {
   overflow: hidden;
 }
 
-.notification-icon {
-  color: #e9ecef;
-}
-
-.notification-icon:hover {
-  color: #ffdf00; /* Azul brillante en hover */
-}
-
 /* Barra de navegación */
 nav.navbar {
   background-color: #343a40; /* Color más neutro para el navbar */
@@ -140,23 +132,64 @@ nav.navbar {
   }
 }
 
+/* Notificacitons */
+
+/* Contenedor de notificaciones */
+/* Panel de notificaciones */
+.notification-panel {
+  position: absolute;
+  top: 60px; /* Ajusta según sea necesario */
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  width: 100%;
+  z-index: 999;
+  padding: 10px;
+}
+
+/* Lista de notificaciones */
+.notification-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 .notification-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
+  padding: 8px 12px;
   border-bottom: 1px solid #ddd;
 }
+
 .notification-item:last-child {
   border-bottom: none;
 }
-.close-btn {
-  background: transparent;
-  border: none;
-  font-size: 1rem;
-  color: #dc3545;
-  cursor: pointer;
+
+
+/* Estilo para las notificaciones vacías */
+.text-muted {
+  color: #aaa;
+  text-align: center;
 }
-.tooltip-inner {
-  max-width: 300px; /* Ajustar el ancho del tooltip */
+
+/* Icono de notificación */
+.notification-icon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Cambia el color de la X a un gris más sutil */
+.notification-item button {
+  color: #6c757d ; /* Gris suave */
+  font-size: 0.8rem; /* Tamaño ligeramente mayor para la X */
+  border: none;
+}
+
+/* Cambia el color de la X al pasar el mouse */
+.notification-item button:hover {
+  color: #343a40 ; /* Gris oscuro */
 }

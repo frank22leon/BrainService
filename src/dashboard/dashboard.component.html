@@ -1,6 +1,6 @@
 <div class="wrapper">
   <aside id="sidebar" [ngClass]="{ collapsed: isCollapsed }">
-    <!-- Sidebar Content -->
+    <!-- Content Sidebar -->
     <div class="h-100">
       <div class="sidebar-logo fs-2">
         <a routerLink="view-tickets">BrainService</a>
@@ -43,30 +43,59 @@
       </ul>
     </div>
   </aside>
+
   <div class="main">
     <nav class="navbar navbar-expand px-3 border-bottom navbar-dark">
       <button class="btn" id="sidebar-toggle" (click)="toggleSidebar()">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="navbar-collapse navbar">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <!-- Tooltip para notificaciones -->
             <a
               href="#"
-              id="notificationTooltip"
+              (click)="toggleNotifications($event)"
               class="nav-icon pe-md-0"
-              data-bs-toggle="tooltip"
-              title=""
             >
-              <i class="fa-regular fa-bell pe-3 notification-icon"></i>
+              <i
+                class="fa-bell pe-3 notification-icon"
+                [ngClass]="{
+                  'fa-regular': notifications.length === 0,
+                  'fa-solid': notifications.length > 0,
+                  'text-warning': notifications.length > 0,
+                  'text-white': notifications.length === 0
+                }"
+              ></i>
             </a>
-            <!-- Nombre del usuario -->
-            <span class="text-white fs-5 user-text">{{ usuario }}</span>
           </li>
+
+          <!-- Panel de notificaciones -->
+          <div *ngIf="showNotifications" class="notification-panel">
+            <ul class="notification-list">
+              <li
+                *ngFor="let notification of notifications"
+                class="notification-item d-flex justify-content-between align-items-center"
+              >
+                <span>{{ notification.text }}</span>
+                <button
+                  class="btn-close btn-sm text-muted"
+                  (click)="removeNotification(notification.id)"
+                  aria-label="Cerrar"
+                ></button>
+              </li>
+              <!-- Mostrar mensaje cuando no haya notificaciones -->
+              <li *ngIf="notifications.length === 0" class="text-center py-2">
+                <span class="text-muted">Sin notificaciones</span>
+              </li>
+            </ul>
+          </div>
+
+          <span class="text-white fs-5 user-text">{{ usuario }}</span>
         </ul>
       </div>
     </nav>
+
     <main class="context px-3 py-2">
       <div class="container-fluid">
         <router-outlet></router-outlet>
