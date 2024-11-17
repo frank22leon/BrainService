@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class DashboardComponent implements OnInit {
   usuario: string | null = null;
   isCollapsed = false;
+  
 
   constructor(private authService: AuthService) {}
 

@@ -1,65 +1,184 @@
-<div class="container mt-4">
-  <h2>Registro de Usuarios</h2>
-  <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+<section class="register-user-form-section p-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h4 class="text-center pb-3 fs-2">Registro de Usuarios</h4>
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+          <!-- RUT -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="rut"
+              formControlName="rut"
+              placeholder="RUT"
+              maxlength="12"
+              (input)="formatRut($event)"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.get('rut')?.invalid &&
+                  registerForm.get('rut')?.touched,
+                'is-valid': registerForm.get('rut')?.valid
+              }"
+            />
+            <label for="rut">RUT</label>
+            <div
+              *ngIf="
+                registerForm.get('rut')?.invalid &&
+                registerForm.get('rut')?.touched
+              "
+              class="invalid-feedback"
+            >
+              <!-- Mostrar solo el mensaje de campo obligatorio si está vacío -->
+              <small *ngIf="registerForm.get('rut')?.errors?.['required']"
+                >El RUT es obligatorio.</small
+              >
 
-    <div class="mb-3">
-      <label for="rut" class="form-label">RUT</label>
-      <input
-        type="text"
-        id="rut"
-        formControlName="rut"
-        class="form-control"
-        placeholder="Ingresa el RUT"
-      />
+              <!-- Mostrar el mensaje de RUT inválido solo si no está vacío -->
+              <small
+                *ngIf="!registerForm.get('rut')?.errors?.['required'] && registerForm.get('rut')?.errors?.['invalidRut']"
+              >
+                El RUT ingresado no es válido.
+              </small>
+            </div>
+          </div>
+
+          <!-- Nombre Completo -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="fullName"
+              id="fullName"
+              maxlength="90"
+              placeholder="Nombre Completo"
+              [ngClass]="{
+                'is-invalid': registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched,
+                'is-valid': registerForm.get('fullName')?.valid
+              }"
+            />
+            <label for="fullName">Nombre Completo</label>
+            <div
+              *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
+              class="invalid-feedback"
+            >
+              <small *ngIf="registerForm.get('fullName')?.errors?.['required']">
+                El nombre completo es obligatorio.
+              </small>
+              <small *ngIf="registerForm.get('fullName')?.errors?.['invalidFullName']">
+                El nombre solo puede contener letras.
+              </small>
+            </div>
+          </div>
+          
+          <!-- Username -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="username"
+              id="username"
+              maxlength="40"
+              placeholder="Username"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.get('username')?.invalid &&
+                  registerForm.get('username')?.touched,
+                'is-valid': registerForm.get('username')?.valid
+              }"
+            />
+            <label for="username">Username</label>
+            <div
+              *ngIf="
+                registerForm.get('username')?.invalid &&
+                registerForm.get('username')?.touched
+              "
+              class="invalid-feedback"
+            >
+              <small *ngIf="registerForm.get('username')?.errors?.['required']"
+                >El username es obligatorio.</small
+              >
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="password"
+              id="password"
+              maxlength="50"
+              placeholder="Password"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.get('password')?.invalid &&
+                  registerForm.get('password')?.touched,
+                'is-valid': registerForm.get('password')?.valid
+              }"
+            />
+            <label for="password">Password</label>
+            <div
+              *ngIf="
+                registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched
+              "
+              class="invalid-feedback"
+            >
+              <small *ngIf="registerForm.get('password')?.errors?.['required']"
+                >La contraseña es obligatoria.</small
+              >
+              <small *ngIf="registerForm.get('password')?.errors?.['minlength']"
+                >La contraseña debe tener al menos 3 caracteres.</small
+              >
+              <small *ngIf="registerForm.get('password')?.errors?.['maxlength']"
+                >La contraseña no puede tener más de 50 caracteres.</small
+              >
+            </div>
+          </div>
+          <!-- Rol -->
+          <div class="form-custom mb-3">
+            <select
+              class="form-select fst-normal pt-3 pb-3"
+              formControlName="role"
+              id="role"
+              rows="3"
+              [ngClass]="{
+                'text-body-secondary': !selectedRol,
+                'text-black': selectedRol,
+                'is-invalid': role?.invalid && role?.touched,
+                'is-valid': role?.valid && role?.touched
+              }"
+              (change)="onSelectChange($event)"
+              required
+            >
+              <option value="" disabled selected>Selecciona un Rol</option>
+              <option *ngFor="let role of roles" [value]="role.roleId">
+                {{ role.roleName }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                registerForm.get('role')?.invalid &&
+                registerForm.get('role')?.touched
+              "
+              class="invalid-feedback"
+            >
+              <small>El rol es obligatorio.</small>
+            </div>
+          </div>
+          <!-- Botón Enviar -->
+          <div class="d-grid">
+            <button
+              class="btn btn-primary btn-lg"
+              type="submit"
+              [disabled]="registerForm.invalid"
+            >
+              Registrar Usuario
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="mb-3">
-      <label for="fullName" class="form-label">Nombre Completo</label>
-      <input
-        type="text"
-        id="fullName"
-        formControlName="fullName"
-        class="form-control"
-        placeholder="Ingresa el nombre completo"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label for="username" class="form-label">Nombre de Usuario</label>
-      <input
-        type="text"
-        id="username"
-        formControlName="username"
-        class="form-control"
-        placeholder="Ingresa el nombre de usuario"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label for="password" class="form-label">Contraseña</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        class="form-control"
-        placeholder="Ingresa una contraseña"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label for="role" class="form-label">Rol</label>
-      <select id="role" formControlName="role" class="form-select">
-        <option value="" disabled selected>Selecciona un rol</option>
-        <option *ngFor="let role of roles" [value]="role.roleId">{{ role.roleName }}</option>
-      </select>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="registerForm.invalid"
-    >
-      Registrar Usuario
-    </button>
-  </form>
-</div>
+  </div>
+</section>

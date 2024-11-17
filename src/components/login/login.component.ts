@@ -64,17 +64,17 @@ export class LoginComponent {
         } else if (response && !response.isSuccess) {
           // Si isSuccess es false, indica usuario o contraseña incorrectos
           this.message = 'Usuario o contraseña incorrectos';
-          this.notificationService.showError(this.message);
+          this.notificationService.showErrorLogin(this.message);
         } else {
           this.message = 'Error de conexión. Intente nuevamente más tarde.';
-          this.notificationService.showError(this.message);
+          this.notificationService.showErrorLogin(this.message);
         }
       },
       error: (err) => {
         console.error(err); // Mostrar el error en consola para depuración
         // Mensaje de error de conexión
         this.message = 'Error de conexión. Intente nuevamente más tarde: ' + err;
-          this.notificationService.showError(this.message);
+          this.notificationService.showErrorLogin(this.message);
       }
     });
   }

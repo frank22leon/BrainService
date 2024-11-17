@@ -9,18 +9,41 @@ export class NotificationService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(private snackBar: MatSnackBar) {}
 
-  showSuccess(message: string): void {
+  showErrorLogin(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
       duration: 3000,
      /*  verticalPosition: this.verticalPosition, */
+      panelClass: ['snack-bar-error']
+    });
+  }
+  showSuccessCreateTicket(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: this.verticalPosition,
       panelClass: ['snack-bar-success']
     });
   }
 
-  showError(message: string): void {
+  showErrorCreateTicket(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
       duration: 3000,
-     /*  verticalPosition: this.verticalPosition, */
+      verticalPosition: this.verticalPosition,
+      panelClass: ['snack-bar-error']
+    });
+  }
+  
+  showSuccessCreateUser(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: this.verticalPosition,
+      panelClass: ['snack-bar-success']
+    });
+  }
+
+  showErrorCreateUser(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: this.verticalPosition,
       panelClass: ['snack-bar-error']
     });
   }

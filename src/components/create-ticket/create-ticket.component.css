@@ -1,17 +1,66 @@
+/* Formularios dentro del dashboard */
 .ticket-form-section {
-    background-color: #f8f9fa; /* Color de fondo suave */
-    padding: 2rem; /* Espaciado alrededor */
-    border-radius: 8px; /* Bordes redondeados */
-    border: 1px solid #dee2e6; /* Borde alrededor de la sección */
-  }
-  
-  .ticket-form-section .card {
-    background-color: #ffffff; /* Fondo blanco para el formulario */
-    border-radius: 8px; /* Bordes redondeados de la tarjeta */
-    padding: 1.5rem;
-  }
-  
-  .ticket-form-section .card-body {
-    padding: 2rem; /* Espacio dentro de la tarjeta */
-  }
-  
+  background-color: #F4F7FC; /* Fondo similar al de la página principal */
+  max-width: 800px;
+  margin: 0 auto; /* Centrado */
+  padding: 2rem;
+}
+
+.ticket-form-section h4 {
+  color: #343A40; /* Título en un gris oscuro */
+  font-size: 1.5rem;
+}
+
+.ticket-form-section .form-floating input,
+.ticket-form-section .form-floating textarea,
+.ticket-form-section .form-custom select {
+  border: 1px solid #495057; /* Borde más oscuro para combinar con la barra de navegación */
+  border-radius: 5px;
+
+}
+
+.ticket-form-section .form-floating input:focus,
+.ticket-form-section .form-floating textarea:focus,
+.ticket-form-section .form-custom select:focus {
+  border-color: #007bff; /* Azul claro para el borde cuando esté enfocado */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra azul en foco */
+}
+
+.ticket-form-section .form-floating label,
+.ticket-form-section .form-custom label{
+  color: #495057; /* Gris oscuro para las etiquetas */
+}
+
+.ticket-form-section .d-grid button {
+  background-color: #1E2A37; /* Fondo del botón en el mismo azul oscuro que el sidebar */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 1rem;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.ticket-form-section .d-grid button:hover {
+  background-color: #343A40; /* Azul ligeramente más claro en hover */
+}
+
+.ticket-form-section .d-grid button:focus {
+  outline: none;
+}
+.text-black {
+  color: black !important;  /* Forzar color negro en el texto */
+}
+.is-invalid {
+  border: 2px solid red !important;
+}
+
+.is-valid {
+  border: 2px solid green !important;
+}
+
+.invalid-feedback {
+  color: red !important;
+  font-size: 0.85rem;
+}

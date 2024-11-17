@@ -5,8 +5,9 @@
 }
 
 body {
-    font-size: 0.875rem;
-    opacity:1;
-    overflow-y:scroll;
-    margin:0;
+  font-size: 0.875rem;
+  opacity: 1;
+  overflow-y: auto;  /* Cambiar a auto para que el scroll solo aparezca si es necesario */
+  margin: 0;
+  height: 100vh;  /* Asegura que el body ocupe toda la altura de la pantalla */
 }

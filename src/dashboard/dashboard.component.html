@@ -1,53 +1,13 @@
-<!-- <div class="dashboard-container d-flex">
-
-  <aside class="sidebar bg-dark text-white p-3" style="width: 250px">
-    <div class="sidebar-header text-center mb-4">
-      <h4>BrainService</h4>
-    </div>
-    <nav class="nav flex-column">
-
-      <button routerLink="create-ticket">Creación de Tickets</button>
-      <button routerLink="view-tickets">Panel de Tickets</button>
-      <button routerLink="view-tickets-user">Mis Tickets</button>
-      <button routerLink="register-users">Registro de Usuarios</button>
-      <button routerLink="reset-password">Resetear Contraseña</button>
-      <button (click)="logout()">Cerrar Sesión</button>
-    </nav>
-  </aside>
-
-  <div class="main-content flex-grow-1">
-
-    <header
-      class="top-bar d-flex justify-content-end align-items-center p-3 border-bottom"
-    >
-
-
-      <div class="user-profile d-flex align-items-center">
-        <i class="fa-regular fa-bell pe-3"></i>
-        <span class="text-dark fs-5">{{ usuario }}</span>
-
-      </div>
-    </header>
-
-    <section class="content p-4">
-      <div class="container-fluid">
-        <router-outlet></router-outlet>
-      </div>
-    </section>
-  </div>
-</div>
- -->
-
 <div class="wrapper">
   <aside id="sidebar" [ngClass]="{ collapsed: isCollapsed }">
-    <!--    Content Sidebar -->
+    <!-- Sidebar Content -->
     <div class="h-100">
-      <div class="sidebar-logo">
+      <div class="sidebar-logo fs-2">
         <a routerLink="view-tickets">BrainService</a>
       </div>
       <ul class="sidebar-nav">
         <li class="sidebar-header">Modulo Tickets</li>
-        <li class="sidebar-item">
+        <li class="sidebar-item pb-2">
           <a routerLink="create-ticket" class="sidebar-link">
             <i class="fa-solid fa-pen pe-1"></i>
             Crear Tickets
@@ -90,17 +50,19 @@
       </button>
       <div class="navbar-collapse navbar">
         <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+          <li class="nav-item">
+            <!-- Tooltip para notificaciones -->
+            <a
+              href="#"
+              id="notificationTooltip"
+              class="nav-icon pe-md-0"
+              data-bs-toggle="tooltip"
+              title=""
+            >
               <i class="fa-regular fa-bell pe-3 notification-icon"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a href="#" class="dropdown-item">Notificación 1</a>
-              <a href="#" class="dropdown-item">Notificación 2</a>
-              <a href="#" class="dropdown-item">Notificación 3</a>
-            </div>
+            <!-- Nombre del usuario -->
             <span class="text-white fs-5 user-text">{{ usuario }}</span>
-            
           </li>
         </ul>
       </div>
@@ -110,9 +72,5 @@
         <router-outlet></router-outlet>
       </div>
     </main>
-    <!-- <a href="#" class="theme-toggle">
-      <i class="fa-regular fa-sun"></i>
-      <i class="fa-regular fa-moon"></i>
-    </a> -->
   </div>
 </div>

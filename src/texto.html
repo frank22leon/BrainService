@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <h2>Registro de Usuarios</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+  
+      <div class="mb-3">
+        <label for="rut" class="form-label">RUT</label>
+        <input
+          type="text"
+          id="rut"
+          formControlName="rut"
+          class="form-control"
+          placeholder="Ingresa el RUT"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Nombre Completo</label>
+        <input
+          type="text"
+          id="fullName"
+          formControlName="fullName"
+          class="form-control"
+          placeholder="Ingresa el nombre completo"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="username" class="form-label">Nombre de Usuario</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          placeholder="Ingresa el nombre de usuario"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Ingresa una contraseña"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="role" class="form-label">Rol</label>
+        <select id="role" formControlName="role" class="form-select">
+          <option value="" disabled selected>Selecciona un rol</option>
+          <option *ngFor="let role of roles" [value]="role.roleId">{{ role.roleName }}</option>
+        </select>
+      </div>
+  
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="registerForm.invalid"
+      >
+        Registrar Usuario
+      </button>
+    </form>
+  </div>

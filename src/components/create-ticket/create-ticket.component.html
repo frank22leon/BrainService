@@ -1,104 +1,199 @@
-<section class="ticket-form-section bg-light p-4 my-5">
+<section class="ticket-form-section p-4">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card border border-secondary shadow-sm rounded">
-          <div class="card-body">
-            <h4 class="text-center pb-3">Crear un nuevo Ticket en BrainService</h4>
-            <p class="text-center fst-italic">
-              Completa el formulario para generar un ticket de soporte.
-            </p>
-            <form [formGroup]="ticketForm" (ngSubmit)="createTicketForm()">
-              <!-- Título -->
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="titulo"
-                  id="titulo"
-                  placeholder="Título del Ticket"
-                  required
-                />
-                <label for="titulo">Título del Ticket</label>
-              </div>
-    
-              <!-- Descripción -->
-              <div class="form-floating mb-3">
-                <textarea
-                  class="form-control"
-                  formControlName="descripcion"
-                  id="descripcion"
-                  placeholder="Descripción del problema o solicitud"
-                  rows="3"
-                  required
-                ></textarea>
-                <label for="descripcion">Descripción</label>
-              </div>
-    
-              <!-- Categoría -->
-              <div class="form-floating mb-3">
-                <select
-                  class="form-select"
-                  formControlName="categoria"
-                  id="categoria"
-                  required
-                >
-                  <option value="" disabled selected>Selecciona una categoría</option>
-                  <option *ngFor="let category of categories" [value]="category.categoryId">
-                    {{ category.name }}
-                  </option>                  
-                </select>
-                <label for="categoria">Categoría</label>
-              </div>
-    
-              <!-- Solicitante -->
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="solicitante"
-                  id="solicitante"
-                  placeholder="Nombre del Solicitante"
-                  required
-                />
-                <label for="solicitante">Nombre del Solicitante</label>
-              </div>
-    
-              <!-- Email -->
-              <div class="form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  formControlName="email"
-                  id="email"
-                  placeholder="Correo Electrónico"
-                  required
-                />
-                <label for="email">Correo Electrónico</label>
-              </div>
-    
-              <!-- Teléfono -->
-              <div class="form-floating mb-3">
-                <input
-                  type="tel"
-                  class="form-control"
-                  formControlName="telefono"
-                  id="telefono"
-                  placeholder="Teléfono"
-                  required
-                />
-                <label for="telefono">Teléfono</label>
-              </div>
-    
-              <!-- Botón Enviar -->
-              <div class="d-grid">
-                <button class="btn btn-dark btn-lg" type="submit">
-                  Enviar Ticket
-                </button>
-              </div>
-            </form>
+        <h4 class="text-center pb-3 fs-2">Crear un nuevo Ticket</h4>
+        <p class="text-center fst-italic mb-4">
+          Completa el formulario para generar un ticket de soporte.
+        </p>
+        <form [formGroup]="ticketForm" (ngSubmit)="createTicketForm()">
+          <!-- Título -->
+          <div class="form-floating fst-normal mb-3">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="titulo"
+              id="titulo"
+              placeholder="Título del Ticket"
+              rows="3"
+              [ngClass]="{
+                'is-invalid': titulo?.invalid && titulo?.touched,
+                'is-valid': titulo?.valid
+              }"
+              maxlength="200"
+            />
+            <label for="titulo">Título del Ticket</label>
+            <div
+              *ngIf="titulo?.invalid && titulo?.touched"
+              class="invalid-feedback"
+            >
+              <small *ngIf="titulo?.errors?.['required']"
+                >El título es obligatorio.</small
+              >
+              <small *ngIf="titulo?.errors?.['minlength']"
+                >Debe tener al menos 5 caracteres.</small
+              >
+            </div>
           </div>
-        </div>
+
+          <!-- Descripción -->
+          <div class="form-floating fst-normal mb-3">
+            <textarea
+              class="form-control"
+              formControlName="descripcion"
+              id="descripcion"
+              placeholder="Descripción del problema o solicitud"
+              rows="3"
+              [ngClass]="{
+                'is-invalid': descripcion?.invalid && descripcion?.touched,
+                'is-valid': descripcion?.valid
+              }"
+              maxlength="500"
+            ></textarea>
+            <label for="descripcion">Descripción</label>
+            <div
+              *ngIf="descripcion?.invalid && descripcion?.touched"
+              class="invalid-feedback"
+            >
+              <small *ngIf="descripcion?.errors?.['required']"
+                >La descripción es obligatoria.</small
+              >
+              <small *ngIf="descripcion?.errors?.['minlength']"
+                >Debe tener al menos 10 caracteres.</small
+              >
+            </div>
+          </div>
+
+          <!-- Categoría -->
+          <div class="form-custom mb-3">
+            <select
+              class="form-select fst-normal pt-3 pb-3"
+              formControlName="categoria"
+              id="categoria"
+              rows="3"
+              [ngClass]="{
+                'text-body-secondary': !selectedCategory,
+                'text-black': selectedCategory,
+                'is-invalid': categoria?.invalid && categoria?.touched,
+                'is-valid': categoria?.valid && categoria?.touched
+              }"
+              (change)="onSelectChange($event)"
+              required
+            >
+              <option value="" disabled selected>
+                Selecciona una categoría
+              </option>
+              <option
+                *ngFor="let category of categories"
+                [value]="category.categoryId"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+            <div
+              *ngIf="categoria?.invalid && categoria?.touched"
+              class="invalid-feedback"
+            >
+              <small>La categoría es obligatoria.</small>
+            </div>
+          </div>
+          <!-- Solicitante -->
+          <div class="form-floating fst-normal mb-3">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="solicitante"
+              id="solicitante"
+              placeholder="Nombre del Solicitante"
+              rows="3"
+              [ngClass]="{
+                'is-invalid': solicitante?.invalid && solicitante?.touched,
+                'is-valid': solicitante?.valid
+              }"
+              maxlength="90"
+            />
+            <label for="solicitante">Nombre del Solicitante</label>
+            <div
+              *ngIf="solicitante?.invalid && solicitante?.touched"
+              class="invalid-feedback"
+            >
+              <small *ngIf="solicitante?.errors?.['required']"
+                >El nombre es obligatorio.</small
+              >
+              <small *ngIf="solicitante?.errors?.['pattern']"
+                >Solo se permiten letras y espacios.</small
+              >
+            </div>
+          </div>
+          <!-- Email -->
+          <div class="form-floating fst-normal mb-3">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              id="email"
+              placeholder="Correo Electrónico"
+              rows="3"
+              [ngClass]="{
+                'is-invalid': email?.invalid && email?.touched,
+                'is-valid': email?.valid
+              }"
+              maxlength="90"
+            />
+            <label for="email">Correo Electrónico</label>
+            <div
+              *ngIf="email?.invalid && email?.touched"
+              class="invalid-feedback"
+            >
+              <small *ngIf="email?.errors?.['required']"
+                >El correo electrónico es obligatorio.</small
+              >
+              <small *ngIf="email?.errors?.['email']"
+                >Debe ser un correo electrónico válido.</small
+              >
+            </div>
+          </div>
+          <!-- Teléfono -->
+          <div class="form-floating fst-normal mb-3">
+            <input
+              type="tel"
+              class="form-control"
+              formControlName="telefono"
+              id="telefono"
+              placeholder="+56 9 12345678"
+              rows="3"
+              [ngClass]="{
+                'is-invalid': telefono?.invalid && telefono?.touched,
+                'is-valid': telefono?.valid
+              }"
+              maxlength="16"
+              (input)="formatPhoneNumber($event)"
+            />
+            <label for="telefono">Teléfono</label>
+            <div
+              *ngIf="telefono?.invalid && telefono?.touched"
+              class="invalid-feedback"
+            >
+              <small *ngIf="telefono?.errors?.['required']"
+                >El teléfono es obligatorio.</small
+              >
+              <small *ngIf="telefono?.errors?.['pattern']"
+                >El número no cumple con el formato</small
+              >
+            </div>
+          </div>
+
+          <!-- Botón Enviar -->
+          <div class="d-grid">
+            <button
+              class="btn btn-primary btn-lg"
+              type="submit"
+              [disabled]="ticketForm.invalid"
+            >
+              Enviar Ticket
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
