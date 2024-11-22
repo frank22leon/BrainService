@@ -13,9 +13,11 @@ export class TicketService {
   createTicket(ticketData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/Tickets/CreateTicket`, ticketData);
   }
-  // Método para obtener las categorías
   getCategories(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/Tickets/GetCategories`);
   }
 
+  getTicketsByUser(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tickets/ViewTicketsByUser/${userId}`);
+  }
 }

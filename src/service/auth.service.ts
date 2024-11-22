@@ -26,7 +26,7 @@ export class AuthService {
             sessionStorage.setItem('token', response.token); // Guarda el access token
             sessionStorage.setItem('refreshToken', response.refreshToken); // Guarda el refresh token
             sessionStorage.setItem('usuario', response.usuario);
-            sessionStorage.setItem('idUsuario', response.idUser);  // Guarda el nombre de usuario
+            sessionStorage.setItem('idUsuario', response.idUser); // Guarda el nombre de usuario
           }
         }
       }),
@@ -61,9 +61,9 @@ export class AuthService {
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('refreshToken');
             sessionStorage.removeItem('usuario');
-            sessionStorage.removeItem('idUsuario'); 
+            sessionStorage.removeItem('idUsuario');
           }
-          this.router.navigate(['/login']); 
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           console.error('Error al cerrar sesión:', err);
@@ -87,11 +87,15 @@ export class AuthService {
   }
 
   getUsuario(): string | null {
-    return isPlatformBrowser(this.platformId) ? sessionStorage.getItem('usuario') : null;
+    return isPlatformBrowser(this.platformId)
+      ? sessionStorage.getItem('usuario')
+      : null;
   }
 
   getUsuarioId(): string | null {
-    return isPlatformBrowser(this.platformId) ? sessionStorage.getItem('idUsuario') : null;
+    return isPlatformBrowser(this.platformId)
+      ? sessionStorage.getItem('idUsuario')
+      : null;
   }
 
   getRoles(): Observable<any[]> {
@@ -111,5 +115,39 @@ export class AuthService {
       })
     );
   }
-  
+
+  checkUserExists(username: string, rut: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Acceso/CheckUserExists`, {
+      params: { username, rut },
+    });
+  }
+
+  // Método para buscar un usuario por RUT o username
+  // Método para buscar un usuario por RUT o username// Método para buscar un usuario por RUT
+  searchUser(rut: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Acceso/BuscarUsuario`, {
+      params: { rut },
+    });
+  }
+
+  // Método para actualizar un usuario existente
+  updateUser(data: any): Observable<any> {
+    console.log('Datos enviados al backend:', data);
+    return this.http
+      .put<any>(`${this.apiUrl}/Acceso/ActualizarUsuario`, data)
+      .pipe(
+        tap((response) => {
+          if (response.isSuccess) {
+            console.log('Usuario actualizado con éxito:', response);
+          }
+        }),
+        catchError((error) => {
+          console.error('Error al actualizar usuario:', error);
+          return of({
+            isSuccess: false,
+            message: 'Error al actualizar usuario',
+          });
+        })
+      );
+  }
 }

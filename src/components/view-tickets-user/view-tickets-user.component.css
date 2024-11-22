@@ -1,0 +1,109 @@
+/* Fondo animado */
+.fondo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at 20% 20%, rgba(221, 239, 150, 0.5), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(255, 222, 89, 0.5), transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(217, 217, 217, 0.4), transparent 35%);
+    animation: smokeEffect 5s ease-in-out infinite;
+  }
+  
+  /* Animación para el fondo */
+  @keyframes smokeEffect {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+  }
+  
+  /* Estilo del contenedor de tickets */
+  .ticket-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Título */
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Estilos de las tarjetas */
+  .ticket-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Encabezado de las tarjetas */
+  .ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .ticket-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .ticket-status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+  }
+  
+  .status-pending {
+    background-color: #f39c12;
+  }
+  
+  .status-in-progress {
+    background-color: #2980b9;
+  }
+  
+  .status-resolved {
+    background-color: #2ecc71;
+  }
+  
+  /* Detalles de la tarjeta */
+  .ticket-card p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  /* Estilo para el texto de los detalles */
+  .ticket-card strong {
+    color: #2c3e50;
+  }
+  
+  /* Estilo de los botones (si los añades) */
+  .ticket-card .btn {
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+  .ticket-card .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .ticket-card .btn-outline-success:hover {
+    background-color: #198754;
+    color: white;
+  }
