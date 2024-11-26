@@ -174,7 +174,7 @@ formatRut(event: any, targetField?: string) {
             this.authService.registerUser(userData).subscribe(
               (response) => {
                 if (response && response.isSuccess) {
-                  this.registerForm.reset();
+                  this.resetForm() 
                   this.registerForm.patchValue({ role: '' });
                   this.message = 'Usuario registrado exitosamente';
                   this.notificationService.showSuccessCreateUser(this.message);
@@ -282,7 +282,7 @@ formatRut(event: any, targetField?: string) {
               this.notificationService.showSuccessCreateUser(
                 'Usuario actualizado con éxito.'
               );
-              this.registerForm.reset();
+              this.resetForm() 
               this.userId = null;
             } else {
               this.notificationService.showErrorCreateUser(
