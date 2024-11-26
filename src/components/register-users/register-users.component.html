@@ -12,6 +12,7 @@
             id="searchRut"
             [(ngModel)]="searchRut"
             placeholder="Buscar usuario por RUT"
+            (input)="formatRut($event, 'searchRut')"
           />
           <label for="searchRut">Buscar Usuario por RUT</label>
         </div>
@@ -35,7 +36,8 @@
               formControlName="rut"
               placeholder="RUT"
               maxlength="12"
-              (input)="formatRut($event)"
+              (input)="formatRut($event, 'rut')"
+              [disabled]="isEditing"
               [ngClass]="{
                 'is-invalid':
                   registerForm.get('rut')?.invalid &&
@@ -109,6 +111,7 @@
               id="username"
               maxlength="40"
               placeholder="Username"
+              [disabled]="isEditing"
               [ngClass]="{
                 'is-invalid':
                   registerForm.get('username')?.invalid &&
@@ -197,22 +200,29 @@
             </div>
           </div>
           <!-- Botones -->
-          <div class="d-grid gap-2">
+          <div class="d-flex gap-2">
             <button
-              class="btn btn-primary btn-lg"
+              class="btn btn-primary btn-lg w-100"
               type="button"
               (click)="registerUser()"
-              [disabled]="registerForm.invalid"
+              [disabled]="registerForm.invalid || isEditing"
             >
-              Registrar Usuario
+              Registrar
             </button>
             <button
-              class="btn btn-success btn-lg"
+              class="btn btn-success btn-lg w-100"
               type="button"
               (click)="updateUser()"
               [disabled]="!userId || registerForm.invalid"
             >
-              Modificar Usuario
+              Modificar
+            </button>
+            <button
+              class="btn btn-warning text-white btn-lg w-100"
+              type="button"
+              (click)="resetForm()"
+            >
+              Limpiar
             </button>
           </div>
         </form>

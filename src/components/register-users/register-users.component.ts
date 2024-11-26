@@ -27,6 +27,7 @@ export class RegisterUsersComponent {
   selectedRol: string = '';
   searchRut: string = ''; // Campo de búsqueda por RUT
   userId: number | null = null; // ID del usuario para actualizaciones
+  isEditing: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -81,17 +82,27 @@ export class RegisterUsersComponent {
     );
   }
 
-  // Método para formatear el RUT en tiempo real
-  formatRut(event: any) {
-    let rut = event.target.value.replace(/[^0-9kK]/g, ''); // Elimina caracteres no válidos
-    if (rut.length > 1) {
-      rut =
-        rut.slice(0, -1).replace(/\B(?=(\d{3})+(?!\d))/g, '.') +
-        '-' +
-        rut.slice(-1); // Formatear
-    }
+ // Método para formatear el RUT en tiempo real
+formatRut(event: any, targetField?: string) {
+  let rut = event.target.value.replace(/[^0-9kK]/g, ''); // Elimina caracteres no válidos
+  if (rut.length > 1) {
+    rut =
+      rut.slice(0, -1).replace(/\B(?=(\d{3})+(?!\d))/g, '.') +
+      '-' +
+      rut.slice(-1); // Formatear
+  }
+
+  // Si es el campo del formulario reactivo
+  if (targetField === 'rut') {
     this.registerForm.get('rut')?.setValue(rut, { emitEvent: false }); // Actualiza sin disparar validaciones
   }
+
+  // Si es el campo de búsqueda por RUT
+  if (targetField === 'searchRut') {
+    this.searchRut = rut; // Actualiza el valor de la propiedad `searchRut`
+  }
+}
+
 
   // Validador de RUT
   rutValidator(control: AbstractControl): ValidationErrors | null {
@@ -138,6 +149,9 @@ export class RegisterUsersComponent {
 
   registerUser() {
     if (this.registerForm.valid) {
+
+      this.registerForm.get('rut')?.enable();
+      this.registerForm.get('username')?.enable();
       const { username, rut } = this.registerForm.value;
 
       // Verificar existencia de RUT o username
@@ -207,7 +221,10 @@ export class RegisterUsersComponent {
             role: user.roleId,
           });
 
-          this.userId = user.userId; // Guardar UserId para actualizaciones
+          this.userId = user.userId;
+          this.isEditing = true; // Cambia a modo edición
+          this.registerForm.get('rut')?.disable(); // Bloquea el campo `rut`
+          this.registerForm.get('username')?.disable(); // Bloquea el campo `username`
           this.notificationService.showSuccessCreateUser(
             'Usuario cargado correctamente.'
           );
@@ -232,8 +249,19 @@ export class RegisterUsersComponent {
     );
   }
 
+  resetForm() {
+    this.registerForm.reset();
+    this.registerForm.enable(); // Habilita todos los campos del formulario
+    this.userId = null;
+    this.isEditing = false; // Cambia a modo creación
+    this.searchRut = '';
+  }
+
   updateUser() {
     if (this.registerForm.valid) {
+
+      this.registerForm.get('rut')?.enable();
+      this.registerForm.get('username')?.enable();
       const { username, rut } = this.registerForm.value;
 
       if (this.registerForm.valid && this.userId) {
