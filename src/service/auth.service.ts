@@ -22,11 +22,19 @@ export class AuthService {
       tap((response) => {
         if (response.isSuccess) {
           if (isPlatformBrowser(this.platformId)) {
-            // Guarda el token y el refresh token en el localStorage
-            sessionStorage.setItem('token', response.token); // Guarda el access token
-            sessionStorage.setItem('refreshToken', response.refreshToken); // Guarda el refresh token
+            // Guarda el token y otros datos en sessionStorage
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('refreshToken', response.refreshToken);
             sessionStorage.setItem('usuario', response.usuario);
-            sessionStorage.setItem('idUsuario', response.idUser); // Guarda el nombre de usuario
+            sessionStorage.setItem('idUsuario', response.idUser);
+            sessionStorage.setItem('requirePasswordChange', 'false'); // Marcamos que no requiere cambio
+          }
+        } else if (response.requirePasswordChange) {
+          if (isPlatformBrowser(this.platformId)) {
+            // Solo guarda esta información si requiere cambiar la contraseña
+            sessionStorage.setItem('requirePasswordChange', 'true');
+            sessionStorage.setItem('usuario', response.usuario);
+            sessionStorage.setItem('idUsuario', response.idUser);
           }
         }
       }),
@@ -62,6 +70,7 @@ export class AuthService {
             sessionStorage.removeItem('refreshToken');
             sessionStorage.removeItem('usuario');
             sessionStorage.removeItem('idUsuario');
+            sessionStorage.removeItem('requirePasswordChange');
           }
           this.router.navigate(['/login']);
         },
@@ -149,5 +158,26 @@ export class AuthService {
           });
         })
       );
+  }
+  changePassword(data: { newPassword: string }): Observable<any> {
+    const userId = parseInt(this.getUsuarioId() || '0', 10); // Convierte a entero o usa 0 como fallback
+  
+    if (!userId || isNaN(userId)) {
+      console.error('Error: userId no es válido');
+      return of(null); // Retorna un observable vacío si el ID es inválido
+    }
+  
+    // Enviar datos como objeto en el cuerpo de la solicitud
+    return this.http.put(`${this.apiUrl}/Acceso/CambiarContrasena`, {
+      userId: userId,
+      nuevaContrasena: data.newPassword
+    });
+  }
+  
+  requirePasswordChange(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      return sessionStorage.getItem('requirePasswordChange') === 'true';
+    }
+    return false;
   }
 }
