@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7159/api';
+  private apiUrl = 'http://apibrainservice.somee.com/api';
 
   constructor(
     private http: HttpClient,
@@ -18,7 +18,7 @@ export class AuthService {
   ) {}
 
   login(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/Acceso/Login`, data).pipe(
+    return this.http.post<any>(`${this.apiUrl}/Login/Login`, data).pipe(
       tap((response) => {
         if (response.isSuccess) {
           if (isPlatformBrowser(this.platformId)) {

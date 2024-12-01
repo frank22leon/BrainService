@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TicketService {
-  private apiUrl = 'https://localhost:7159/api'; // Cambia la URL según corresponda
+  private apiUrl = 'http://apibrainservice.somee.com/api'; // Cambia la URL según corresponda
 
   constructor(private http: HttpClient) {}
 
