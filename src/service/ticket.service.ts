@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TicketService {
   private apiUrl = 'https://localhost:7159/api'; // Cambia la URL según corresponda
@@ -11,7 +11,10 @@ export class TicketService {
   constructor(private http: HttpClient) {}
 
   createTicket(ticketData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/Tickets/CreateTicket`, ticketData);
+    return this.http.post<any>(
+      `${this.apiUrl}/Tickets/CreateTicket`,
+      ticketData
+    );
   }
 
   getCategories(): Observable<any> {
@@ -19,7 +22,9 @@ export class TicketService {
   }
 
   getTicketsByUser(userId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Tickets/ViewTicketsByUser/${userId}`);
+    return this.http.get<any[]>(
+      `${this.apiUrl}/Tickets/ViewTicketsByUser/${userId}`
+    );
   }
 
   getTickets(): Observable<any[]> {
@@ -29,35 +34,33 @@ export class TicketService {
   assignUserToTicket(ticketId: number, userId: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/Tickets/AssignUserToTicket`, {
       ticketId,
-      assignedUserId: userId
+      assignedUserId: userId,
     });
   }
 
   updateTicketPriority(ticketId: number, priorityId: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/Tickets/UpdateTicketPriority`, {
       ticketId,
-      priorityId
+      priorityId,
     });
+  }
+  getAssignableUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tickets/GetAssignableUsers`);
   }
 
   getPriorities(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/Tickets/GetPriorities`);
   }
-  
-  getAssignableUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Tickets/GetAssignableUsers`);
+
+  getAssignedTickets(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tickets/GetAssignedTickets/${userId}`);
   }
+  
 
   resolveTicket(ticketId: number, resolutionMessage: string): Observable<any> {
-    return this.http.put(`/api/Tickets/UpdateResolutionMessage`, {
+    return this.http.put(`${this.apiUrl}/Tickets/ResolveTicket`, {
       ticketId,
-      resolutionMessage
+      resolutionMessage,
     });
   }
-  
-  getAssignedTickets(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Tickets/AssignedTickets/${userId}`);
-  }
-  
-  
 }

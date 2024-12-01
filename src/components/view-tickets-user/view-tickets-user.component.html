@@ -21,6 +21,7 @@
               <th scope="col">Descripción</th>
               <th scope="col">Fecha de Creación</th>
               <th scope="col">Técnico Asignado</th>
+              <th scope="col">Mensaje de Resolución</th>
             </tr>
           </thead>
           <tbody>
@@ -31,6 +32,7 @@
               <td>{{ ticket.description }}</td>
               <td>{{ ticket.createdDate | date : "shortDate" }}</td>
               <td>{{ ticket.assignedUserName }}</td>
+              <td>{{ ticket.resolutionMessage || 'Sin Mensaje' }}</td>
             </tr>
           </tbody>
         </table>

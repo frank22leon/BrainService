@@ -47,7 +47,7 @@
         >
           Administración Tickets
         </li>
-        <li class="sidebar-item" *ngIf="userRole === 'admin'">
+        <li class="sidebar-item  pb-2" *ngIf="userRole === 'admin'">
           <a
             routerLink="view-tickets-admin"
             routerLinkActive="active"
@@ -57,13 +57,13 @@
             Panel Tickets Admin
           </a>
         </li>
-        <li class="sidebar-item" *ngIf="userRole === 'admin'">
+        <li class="sidebar-item" *ngIf="userRole === 'admin' || userRole === 'soporte'">
           <a
             routerLink="view-tickets-soporte"
             routerLinkActive="active"
             class="sidebar-link"
           >
-            <i class="fa-solid fa-table pe-1"></i>
+            <i class="fa-solid fa-shield-halved pe-1"></i>
             Panel Tickets Soporte
           </a>
         </li>

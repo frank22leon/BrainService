@@ -41,12 +41,12 @@ export class ViewTicketsSoporteComponent implements OnInit {
     }
 
     this.ticketService.getAssignedTickets(Number(userId)).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.tickets = data;
         this.groupTicketsByStatus();
         this.isLoading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error al cargar tickets asignados:', err);
         this.isLoading = false;
       },
@@ -61,8 +61,27 @@ export class ViewTicketsSoporteComponent implements OnInit {
       }
       acc[status].push(ticket);
       return acc;
-    }, {});
+    }, {} as { [key: string]: any[] });
+  
+    // Ordena las claves en un orden específico
+    this.groupedTickets = Object.keys(this.groupedTickets)
+      .sort((a, b) => this.getStatusOrder(a) - this.getStatusOrder(b))
+      .reduce((acc, key) => {
+        acc[key] = this.groupedTickets[key];
+        return acc;
+      }, {} as { [key: string]: any[] });
   }
+  
+  getStatusOrder(status: string): number {
+    // Define el orden de los estados
+    const orderMap: { [key: string]: number } = {
+      'En Progreso': 1,
+      'Resuelto': 2,
+      'Sin Asignar': 3,
+    };
+    return orderMap[status] || 999; // Coloca estados no especificados al final
+  }
+  
 
   resolveTicket(ticket: any): void {
     const message = this.resolutionMessage[ticket.ticketId];
@@ -75,6 +94,7 @@ export class ViewTicketsSoporteComponent implements OnInit {
       next: () => {
         this.notificationService.showSuccess('Ticket resuelto correctamente.');
         ticket.status = 'Resuelto';
+        ticket.resolutionMessage = message; // Actualizar el mensaje localmente
         this.groupTicketsByStatus();
       },
       error: () => {

@@ -23,6 +23,7 @@ interface Ticket {
   createdDate: string;
   createdByUser: string;
   assignedUserName: string;
+  resolutionMessage: string;
 }
 
 @Component({

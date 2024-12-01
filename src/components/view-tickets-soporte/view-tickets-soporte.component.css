@@ -1,24 +1,119 @@
+/* Estilo general para el contenedor de tickets */
 .ticket-container {
-    padding: 20px;
-  }
-  
-  .status-title {
-    color: #343a40;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-  }
-  
-  .tickets-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background-color: #fff;
-  }
-  
+  padding: 20px;
+}
+
+/* Estilo del título principal */
+.title {
+  color: #343a40;
+  font-size: 1.3rem; /* Tamaño más pequeño */
+  margin-bottom: 20px;
+}
+
+/* Estilo del título de cada sección (estado) */
+.status-title {
+  color: #343a40;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+/* Colores específicos para las cabeceras de las tablas */
+.status-container.en-proceso .tickets-table th {
+  background-color: #ffb73b;
+  color: #fff;
+}
+
+.status-container.resuelto .tickets-table th {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+/* Estilo de la tabla de tickets */
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: auto; /* Permitir ajuste dinámico de las columnas */
+}
+
+/* Estilo de las celdas de la tabla */
+.tickets-table th,
+.tickets-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  font-family: "Arial", sans-serif;
+  font-size: 0.9rem;
+  word-wrap: break-word; /* Ajustar texto largo */
+}
+
+/* Alternar filas de la tabla */
+.tickets-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.tickets-table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* Control del ancho de las columnas */
+.tickets-table th:nth-child(1),
+.tickets-table td:nth-child(1) {
+  width: 8%; /* N Ticket más pequeño */
+}
+
+.tickets-table th:nth-child(2),
+.tickets-table td:nth-child(2) {
+  width: 15%; /* Título */
+}
+
+.tickets-table th:nth-child(3),
+.tickets-table td:nth-child(3) {
+  width: 25%; /* Descripción más grande */
+}
+
+.tickets-table th:nth-child(4),
+.tickets-table td:nth-child(4) {
+  width: 10%; /* Fecha */
+}
+
+.tickets-table th:nth-child(5),
+.tickets-table td:nth-child(5) {
+  width: 25%; /* Acciones */
+}
+
+.tickets-table th:nth-child(5),
+.tickets-table td:nth-child(5) {
+  width: 25%; /* Acciones */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
   .tickets-table th,
   .tickets-table td {
-    padding: 8px 12px;
-    text-align: left;
-    border: 1px solid #ddd;
+    font-size: 0.85rem; /* Reducir texto en pantallas pequeñas */
   }
-  
+
+  /* Ajustar proporciones para pantallas pequeñas */
+  .tickets-table th:nth-child(3),
+  .tickets-table td:nth-child(3) {
+    width: 40%; /* Descripción ocupa más espacio */
+  }
+
+  .tickets-table th:nth-child(2),
+  .tickets-table td:nth-child(2) {
+    width: 15%; /* Título ocupa menos espacio */
+  }
+
+  .tickets-table th:nth-child(5),
+  .tickets-table td:nth-child(5) {
+    width: 20%; /* Acciones más ancho */
+  }
+  .tickets-table th:nth-child(7),
+  .tickets-table td:nth-child(7) {
+    width: 20%; /* Ajusta según sea necesario */
+  }
+}
