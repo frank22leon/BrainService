@@ -1,0 +1,74 @@
+<div class="ticket-container">
+  <h2 class="title fs-2 text-center">Gestión de Tickets</h2>
+  <ng-container *ngIf="Object.keys(groupedTickets).length > 0; else noTickets">
+    <div
+      *ngFor="let status of Object.keys(groupedTickets)"
+      class="status-container"
+      [ngClass]="{
+        pendiente: status === 'Pendiente',
+        'en-proceso': status === 'En Progreso',
+        resuelto: status === 'Resuelto'
+      }"
+    >
+      <h3 class="status-title">{{ status }}</h3>
+      <!-- Agregado table-responsive para scroll horizontal -->
+      <div class="table-responsive">
+        <table class="tickets-table table">
+          <thead>
+            <tr>
+              <th scope="col">N Ticket</th>
+              <th scope="col">Título</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Asignar Usuario</th>
+              <th scope="col">Prioridad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of groupedTickets[status]">
+              <td class="text-center fw-bolder">{{ ticket.ticketId }}</td>
+              <td>{{ ticket.title }}</td>
+              <td>{{ ticket.applicantName }}</td>
+              <td>{{ ticket.description }}</td>
+              <td>{{ ticket.category }}</td>
+              <td class="text-center">{{ ticket.createdDate | date : 'shortDate' }}</td>
+              <td>
+                <select
+                  [(ngModel)]="ticket.assignedUserId"
+                  class="form-select"
+                  (change)="assignUser(ticket)"
+                  [title]="getSelectedUserName(ticket.assignedUserId)"
+                >
+                  <option [ngValue]="null">Seleccionar</option>
+                  <option *ngFor="let user of users" [ngValue]="user.userId">
+                    {{ user.fullName }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <select
+                  [(ngModel)]="ticket.priorityId"
+                  class="form-select"
+                  (change)="updatePriority(ticket)"
+                >
+                  <option [ngValue]="null">Seleccionar Prioridad</option>
+                  <option
+                    *ngFor="let priority of priorities"
+                    [ngValue]="priority.priorityId"
+                  >
+                    {{ priority.name }}
+                  </option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noTickets>
+    <p class="text-center">No hay tickets disponibles.</p>
+  </ng-template>
+</div>

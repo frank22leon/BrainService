@@ -1,0 +1,24 @@
+.ticket-container {
+    padding: 20px;
+  }
+  
+  .status-title {
+    color: #343a40;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  
+  .tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff;
+  }
+  
+  .tickets-table th,
+  .tickets-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  

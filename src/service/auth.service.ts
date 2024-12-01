@@ -27,6 +27,7 @@ export class AuthService {
             sessionStorage.setItem('refreshToken', response.refreshToken);
             sessionStorage.setItem('usuario', response.usuario);
             sessionStorage.setItem('idUsuario', response.idUser);
+            sessionStorage.setItem('role', response.rol);
             sessionStorage.setItem('requirePasswordChange', 'false'); // Marcamos que no requiere cambio
           }
         } else if (response.requirePasswordChange) {
@@ -70,6 +71,7 @@ export class AuthService {
             sessionStorage.removeItem('refreshToken');
             sessionStorage.removeItem('usuario');
             sessionStorage.removeItem('idUsuario');
+            sessionStorage.removeItem('role');
             sessionStorage.removeItem('requirePasswordChange');
           }
           this.router.navigate(['/login']);
@@ -107,6 +109,21 @@ export class AuthService {
       : null;
   }
 
+  getUserRole(): string | null {
+    return isPlatformBrowser(this.platformId)
+      ? sessionStorage.getItem('role') // Suponiendo que el rol está almacenado como 'role'
+      : null;
+  }
+  
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Acceso/Users`).pipe(
+      catchError((error) => {
+        console.error('Error al obtener la lista de usuarios:', error);
+        return of([]); // Devuelve un arreglo vacío en caso de error
+      })
+    );
+  }
+  
   getRoles(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/Acceso/Roles`);
   }

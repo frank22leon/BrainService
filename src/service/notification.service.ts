@@ -47,4 +47,20 @@ export class NotificationService {
       panelClass: ['snack-bar-error']
     });
   }
+
+  showSuccess(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: this.verticalPosition,
+      panelClass: ['snack-bar-success']
+    });
+  }
+  showError(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: this.verticalPosition,
+      panelClass: ['snack-bar-error']
+    });
+  }
 }
+

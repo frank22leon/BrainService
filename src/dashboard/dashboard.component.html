@@ -7,28 +7,75 @@
       </div>
       <ul class="sidebar-nav">
         <li class="sidebar-header">Modulo Tickets</li>
-        <li class="sidebar-item pb-2">
-          <a routerLink="create-ticket" routerLinkActive="active" class="sidebar-link">
+        <li
+          class="sidebar-item pb-2"
+          *ngIf="
+            userRole === 'user' ||
+            userRole === 'soporte' ||
+            userRole === 'admin'
+          "
+        >
+          <a
+            routerLink="create-ticket"
+            routerLinkActive="active"
+            class="sidebar-link"
+          >
             <i class="fa-solid fa-pen pe-1"></i>
             Crear Tickets
           </a>
         </li>
-        <li class="sidebar-item">
-          <a routerLink="view-tickets-user" routerLinkActive="active" class="sidebar-link">
+        <li
+          class="sidebar-item"
+          *ngIf="
+            userRole === 'user' ||
+            userRole === 'soporte' ||
+            userRole === 'admin'
+          "
+        >
+          <a
+            routerLink="view-tickets-user"
+            routerLinkActive="active"
+            class="sidebar-link"
+          >
             <i class="fa-solid fa-ticket pe-1"></i>
             Mis Tickets
           </a>
         </li>
-        <li class="sidebar-header">Administración Tickets</li>
-        <li class="sidebar-item">
-          <a routerLink="view-tickets" routerLinkActive="active" class="sidebar-link">
+        <li
+          class="sidebar-header"
+          *ngIf="userRole === 'soporte' || userRole === 'admin'"
+        >
+          Administración Tickets
+        </li>
+        <li class="sidebar-item" *ngIf="userRole === 'admin'">
+          <a
+            routerLink="view-tickets-admin"
+            routerLinkActive="active"
+            class="sidebar-link"
+          >
             <i class="fa-solid fa-table pe-1"></i>
-            Panel Tickets
+            Panel Tickets Admin
           </a>
         </li>
-        <li class="sidebar-header">Administración Usuarios</li>
-        <li class="sidebar-item">
-          <a routerLink="register-users" routerLinkActive="active" class="sidebar-link">
+        <li class="sidebar-item" *ngIf="userRole === 'admin'">
+          <a
+            routerLink="view-tickets-soporte"
+            routerLinkActive="active"
+            class="sidebar-link"
+          >
+            <i class="fa-solid fa-table pe-1"></i>
+            Panel Tickets Soporte
+          </a>
+        </li>
+        <li class="sidebar-header" *ngIf="userRole === 'admin'">
+          Administración Usuarios
+        </li>
+        <li class="sidebar-item" *ngIf="userRole === 'admin'">
+          <a
+            routerLink="register-users"
+            routerLinkActive="active"
+            class="sidebar-link"
+          >
             <i class="fa-solid fa-user pe-1"></i>
             Gestión de Usuarios
           </a>

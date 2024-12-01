@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
   usuario: string | null = null;
+  userRole: string | null = null;
   isCollapsed = false;
   notifications: Array<{ id: number; text: string }> = [];
   showNotifications = false;
@@ -19,7 +20,9 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.usuario = this.authService.getUsuario(); // Obtenemos el nombre de usuario al inicializar el componente
+    this.usuario = this.authService.getUsuario();
+    this.userRole = this.authService.getUserRole();
+    console.log(this.usuario) // Obtenemos el nombre de usuario al inicializar el componente
     this.loadNotifications();
   }
 

@@ -57,7 +57,7 @@ export class LoginComponent {
     this.authService.login(formData).subscribe({
       next: (response) => {
         console.log(response); // Para depuración: muestra la respuesta completa en consola.
-  
+
         if (response && response.requirePasswordChange) {
           // Si requiere cambiar contraseña, redirige al componente correspondiente
           this.router.navigate(['/change-password']);

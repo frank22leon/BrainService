@@ -4,8 +4,9 @@ import { requirePasswordChangeGuard } from '../guard/require-password-change.gua
 import { LoginComponent } from '../components/login/login.component';
 import { ChangePasswordComponent } from '../components/change-password/change-password.component';
 import { CreateTicketComponent } from '../components/create-ticket/create-ticket.component';
-import { ViewTicketsComponent } from '../components/view-tickets/view-tickets.component';
 import { RegisterUsersComponent } from '../components/register-users/register-users.component';
+import { ViewTicketsAdminComponent } from '../components/view-tickets-admin/view-tickets-admin.component';
+import { ViewTicketsSoporteComponent } from '../components/view-tickets-soporte/view-tickets-soporte.component';
 import { ViewTicketsUserComponent } from '../components/view-tickets-user/view-tickets-user.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
@@ -27,8 +28,13 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: 'view-tickets',
-        component: ViewTicketsComponent,
+        path: 'view-tickets-admin',
+        component: ViewTicketsAdminComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'view-tickets-soporte',
+        component: ViewTicketsSoporteComponent,
         canActivate: [authGuard],
       },
       {

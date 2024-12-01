@@ -1,23 +1,43 @@
 <div class="ticket-container">
-    <h2 class="title">Lista de Tickets</h2>
-    <div *ngIf="tickets.length > 0; else noTickets">
-      <div *ngFor="let ticket of tickets" class="ticket-card">
-        <div class="ticket-header">
-          <h3>{{ ticket.title }}</h3>
-          <div class="ticket-status" [ngClass]="{'status-pending': ticket.status === 'Pendiente', 'status-in-progress': ticket.status === 'En Progreso', 'status-resolved': ticket.status === 'Resuelto'}">
-            {{ ticket.status }}
-          </div>
-        </div>
-        <p><strong>Descripción:</strong> {{ ticket.description }}</p>
-        <p><strong>Prioridad:</strong> {{ ticket.priority }}</p>
-        <p><strong>Categoría:</strong> {{ ticket.category }}</p>
-        <p><strong>Solicitante:</strong> {{ ticket.applicantName }}</p>
-        <p><strong>Email:</strong> {{ ticket.applicantEmail }}</p>
-        <p><strong>Teléfono:</strong> {{ ticket.applicantPhone }}</p>
-        <p><strong>Fecha de creación:</strong> {{ ticket.createdDate | date:'short' }}</p>
+  <h2 class="title fs-2 text-center">Mis Tickets</h2>
+  <ng-container *ngIf="Object.keys(groupedTickets).length > 0; else noTickets">
+    <div
+      *ngFor="let status of Object.keys(groupedTickets)"
+      class="status-container"
+      [ngClass]="{
+        pendiente: status === 'Pendiente',
+        'en-proceso': status === 'En Progreso',
+        resuelto: status === 'Resuelto'
+      }"
+    >
+      <h3 class="status-title">{{ status }}</h3>
+      <div class="table-responsive"> <!-- Responsividad horizontal -->
+        <table class="tickets-table table">
+          <thead>
+            <tr>
+              <th scope="col">N Ticket</th>
+              <th scope="col">Título</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Fecha de Creación</th>
+              <th scope="col">Técnico Asignado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of groupedTickets[status]">
+              <td class="text-center fw-bolder">{{ ticket.ticketId }}</td>
+              <td>{{ ticket.title }}</td>
+              <td>{{ ticket.applicantName }}</td>
+              <td>{{ ticket.description }}</td>
+              <td>{{ ticket.createdDate | date : "shortDate" }}</td>
+              <td>{{ ticket.assignedUserName }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <ng-template #noTickets>
-      <p>No hay tickets disponibles.</p>
-    </ng-template>
-  </div>
+  </ng-container>
+  <ng-template #noTickets>
+    <p class="text-center">No hay tickets disponibles.</p>
+  </ng-template>
+</div>

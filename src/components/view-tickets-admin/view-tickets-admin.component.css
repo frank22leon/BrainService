@@ -6,7 +6,7 @@
 /* Estilo del título principal */
 .title {
   color: #343a40;
-  font-size: 1.3rem; /* Tamaño más pequeño */
+  font-size: 1.3rem;
   margin-bottom: 20px;
 }
 
@@ -36,12 +36,11 @@
 /* Estilo de la tabla de tickets */
 .tickets-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 30px;
+  background-color: #fff;
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
-  table-layout: auto; /* Permitir ajuste dinámico de las columnas */
+  table-layout: auto;/* Permitir que las columnas se ajusten automáticamente */
 }
 
 /* Estilo de las celdas de la tabla */
@@ -52,10 +51,10 @@
   border: 1px solid #ddd;
   font-family: "Arial", sans-serif;
   font-size: 0.9rem;
-  word-wrap: break-word; /* Ajustar texto largo */
+  word-wrap: break-word;
 }
 
-/* Alternar filas de la tabla */
+/* Estilo para las filas alternas de la tabla */
 .tickets-table tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
@@ -64,20 +63,32 @@
   background-color: #ffffff;
 }
 
-/* Control del ancho de las columnas */
+/* Estilo del select */
+.form-select {
+  width: 100%;
+  padding: 5px;
+  font-size: 0.85rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  text-overflow: ellipsis;
+}
+
+/* Control de ancho de columnas */
 .tickets-table th:nth-child(1),
 .tickets-table td:nth-child(1) {
-  width: 6%; /* N Ticket más pequeño */
+  width: 7%; /* N Ticket más pequeño */
 }
 
 .tickets-table th:nth-child(2),
 .tickets-table td:nth-child(2) {
-  width: 10%; /* Título */
+  width: 15%; /* Título */
 }
 
 .tickets-table th:nth-child(3),
 .tickets-table td:nth-child(3) {
-  width: 10%; /* Solicitante */
+  width: 13%; /* Solicitante */
 }
 
 .tickets-table th:nth-child(4),
@@ -87,12 +98,22 @@
 
 .tickets-table th:nth-child(5),
 .tickets-table td:nth-child(5) {
-  width: 12%; /* Fecha */
+  width: 12%; /* Categoría */
 }
 
 .tickets-table th:nth-child(6),
 .tickets-table td:nth-child(6) {
-  width: 15%; /* Técnico Asignado */
+  width: 5%; /* Fecha */
+}
+
+.tickets-table th:nth-child(7),
+.tickets-table td:nth-child(7){
+  width: 20%; /* Usuario*/
+}
+
+.tickets-table th:nth-child(8),
+.tickets-table td:nth-child(8) {
+  width: 10%; /* Prioridad */
 }
 
 /* Responsividad */
@@ -102,21 +123,34 @@
     font-size: 0.85rem; /* Reducir texto en pantallas pequeñas */
   }
 
-  /* Ajustar proporciones para pantallas pequeñas */
   .tickets-table th:nth-child(4),
   .tickets-table td:nth-child(4) {
-    width: 40%; /* Descripción ocupa más espacio */
+    width: 40%; /* Aumentar Descripción en pantallas pequeñas */
+  }
+
+  .tickets-table th:nth-child(1),
+  .tickets-table td:nth-child(1) {
+    width: 10%; /* N Ticket ligeramente más grande */
   }
 
   .tickets-table th:nth-child(2),
-  .tickets-table td:nth-child(2) {
-    width: 15%; /* Título ocupa menos espacio */
+  .tickets-table td:nth-child(2),
+  .tickets-table th:nth-child(3),
+  .tickets-table td:nth-child(3) {
+    width: 15%; /* Mantener proporción Título y Solicitante */
   }
 
   .tickets-table th:nth-child(6),
   .tickets-table td:nth-child(6) {
-    width: 20%; /* Técnico Asignado más ancho */
+    width: 20%; /* Fecha más grande */
   }
 }
+
+/* Scroll horizontal para pantallas muy pequeñas */
+.table-responsive {
+  overflow-x: auto;
+}
+
+
 
 

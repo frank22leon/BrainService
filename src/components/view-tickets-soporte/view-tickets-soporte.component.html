@@ -1,0 +1,54 @@
+<div class="ticket-container">
+  <h2 class="title fs-2 text-center">Tickets Asignados</h2>
+  <ng-container *ngIf="Object.keys(groupedTickets).length > 0; else noTickets">
+    <div
+      *ngFor="let status of Object.keys(groupedTickets)"
+      class="status-container"
+    >
+      <h3 class="status-title">{{ status }}</h3>
+      <div class="table-responsive">
+        <table class="tickets-table table">
+          <thead>
+            <tr>
+              <th>N Ticket</th>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Fecha de Creación</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of groupedTickets[status]">
+              <td>{{ ticket.ticketId }}</td>
+              <td>{{ ticket.title }}</td>
+              <td>{{ ticket.description }}</td>
+              <td>{{ ticket.createdDate | date : "shortDate" }}</td>
+              <td>
+                <div *ngIf="status === 'En Proceso'">
+                  <textarea
+                    [(ngModel)]="resolutionMessage[ticket.ticketId]"
+                    class="form-control mb-2"
+                    placeholder="Mensaje de resolución"
+                  ></textarea>
+                  <button
+                    class="btn btn-success btn-sm"
+                    (click)="resolveTicket(ticket)"
+                  >
+                    Resolver
+                  </button>
+                </div>
+                <div *ngIf="status === 'Resuelto'">
+                  <p>{{ ticket.resolutionMessage }}</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noTickets>
+    <p>No hay tickets asignados.</p>
+  </ng-template>
+</div>
