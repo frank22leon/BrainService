@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://apibrainservice.somee.com/api';
+  private apiUrl = 'https://apibrainservice.somee.com/api';
 
   constructor(
     private http: HttpClient,

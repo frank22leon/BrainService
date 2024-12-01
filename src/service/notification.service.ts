@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class NotificationService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  private apiUrl = 'http://apibrainservice.somee.com/api'; // Cambiar según tu configuración
+  private apiUrl = 'https://apibrainservice.somee.com/api'; // Cambiar según tu configuración
   constructor(private snackBar: MatSnackBar, private http: HttpClient) {}
 
   showErrorLogin(message: string): void {
