@@ -47,7 +47,7 @@
         >
           Administración Tickets
         </li>
-        <li class="sidebar-item  pb-2" *ngIf="userRole === 'admin'">
+        <li class="sidebar-item pb-2" *ngIf="userRole === 'admin'">
           <a
             routerLink="view-tickets-admin"
             routerLinkActive="active"
@@ -57,7 +57,10 @@
             Panel Tickets Admin
           </a>
         </li>
-        <li class="sidebar-item" *ngIf="userRole === 'admin' || userRole === 'soporte'">
+        <li
+          class="sidebar-item"
+          *ngIf="userRole === 'admin' || userRole === 'soporte'"
+        >
           <a
             routerLink="view-tickets-soporte"
             routerLinkActive="active"
@@ -131,13 +134,11 @@
                   aria-label="Cerrar"
                 ></button>
               </li>
-              <!-- Mostrar mensaje cuando no haya notificaciones -->
               <li *ngIf="notifications.length === 0" class="text-center py-2">
                 <span class="text-muted">Sin notificaciones</span>
               </li>
             </ul>
           </div>
-
           <span class="text-white fs-5 user-text">{{ usuario }}</span>
         </ul>
       </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { NotificationService } from '../service/notification.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,30 +18,50 @@ export class DashboardComponent implements OnInit {
   notifications: Array<{ id: number; text: string }> = [];
   showNotifications = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.usuario = this.authService.getUsuario();
     this.userRole = this.authService.getUserRole();
-    console.log(this.usuario) // Obtenemos el nombre de usuario al inicializar el componente
+    console.log(this.usuario); // Obtenemos el nombre de usuario al inicializar el componente
     this.loadNotifications();
   }
 
   loadNotifications(): void {
-    // Simulación de carga de notificaciones desde un arreglo
-    this.notifications = [
-      { id: 1, text: 'Tienes una nueva tarea asignada' },
-      { id: 2, text: 'Revisión de ticket pendiente' },
-      { id: 3, text: 'Alerta de seguridad' },
-    ];
+    const userId = this.authService.getUsuarioId();
+    if (!userId) {
+      console.error('No se pudo cargar el ID del usuario.');
+      return;
+    }
+
+    this.notificationService.getNotifications(Number(userId)).subscribe({
+      next: (data) => {
+        this.notifications = data.map((notification: any) => ({
+          id: notification.notificationId,
+          text: notification.message,
+        }));
+      },
+      error: (err) => {
+        console.error('Error al cargar notificaciones:', err);
+      },
+    });
   }
 
   removeNotification(id: number): void {
-    console.log(`Eliminando notificación con ID: ${id}`);
-    this.notifications = this.notifications.filter(
-      (notification) => notification.id !== id
-    );
+    this.notificationService.deleteNotification(id).subscribe({
+      next: () => {
+        console.log(`Notificación con ID ${id} eliminada de la base de datos.`);
+        this.notifications = this.notifications.filter(notification => notification.id !== id);
+      },
+      error: (err) => {
+        console.error(`Error al eliminar la notificación con ID ${id}:`, err);
+      },
+    });
   }
+  
 
   toggleNotifications(event: Event): void {
     event.preventDefault(); // Evita que el enlace recargue la página

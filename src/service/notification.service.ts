@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -7,7 +9,9 @@ import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snac
 })
 export class NotificationService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  constructor(private snackBar: MatSnackBar) {}
+
+  private apiUrl = 'https://localhost:7159/api'; // Cambiar según tu configuración
+  constructor(private snackBar: MatSnackBar, private http: HttpClient) {}
 
   showErrorLogin(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
@@ -61,6 +65,12 @@ export class NotificationService {
       verticalPosition: this.verticalPosition,
       panelClass: ['snack-bar-error']
     });
+  }
+  getNotifications(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Notifications/GetNotificationsByUser/${userId}`);
+  }
+  deleteNotification(notificationId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/Notifications/DeleteNotification/${notificationId}`);
   }
 }
 
