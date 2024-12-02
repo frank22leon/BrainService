@@ -72,7 +72,7 @@ export class ChangePasswordComponent {
 
       // Validar: Al menos 1 letra, 1 carácter especial, y 3 números
       const hasLetter = /[a-zA-Z]/.test(value);
-      const hasSpecial = /[@$!%*?&]/.test(value);
+      const hasSpecial = /[@$!%*?&#.,+-]/.test(value);
       const hasThreeNumbers = /\d.*\d.*\d/.test(value);
 
       const passwordValid = hasLetter && hasSpecial && hasThreeNumbers;

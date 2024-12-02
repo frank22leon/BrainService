@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthService {
   private apiUrl = 'https://apibrainservice.somee.com/api';
+  /* private apiUrl = 'https://localhost:7159/api'; */
 
   constructor(
     private http: HttpClient,

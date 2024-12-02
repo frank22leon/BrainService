@@ -82,11 +82,15 @@
 
 .tickets-table th:nth-child(5),
 .tickets-table td:nth-child(5) {
-  width: 25%; /* Acciones */
+  width: 10%; /* Acciones */
 }
 
 .tickets-table th:nth-child(5),
 .tickets-table td:nth-child(5) {
+  width: 5%; /* Acciones */
+}
+.tickets-table th:nth-child(6),
+.tickets-table td:nth-child(6) {
   width: 25%; /* Acciones */
 }
 

@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TicketService {
-  private apiUrl = 'https://apibrainservice.somee.com/api'; // Cambia la URL según corresponda
+    private apiUrl = 'https://apibrainservice.somee.com/api';  // Cambia la URL según corresponda
+/*   private apiUrl = 'https://localhost:7159/api'; */
 
   constructor(private http: HttpClient) {}
 
@@ -53,9 +54,10 @@ export class TicketService {
   }
 
   getAssignedTickets(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Tickets/GetAssignedTickets/${userId}`);
+    return this.http.get<any[]>(
+      `${this.apiUrl}/Tickets/GetAssignedTickets/${userId}`
+    );
   }
-  
 
   resolveTicket(ticketId: number, resolutionMessage: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/Tickets/ResolveTicket`, {

@@ -21,6 +21,7 @@
               <th scope="col">Solicitante</th>
               <th scope="col">Descripción</th>
               <th scope="col">Categoría</th>
+              <th scope="col">Correo</th>
               <th scope="col">Fecha</th>
               <th scope="col">Asignar Usuario</th>
               <th scope="col">Prioridad</th>
@@ -33,7 +34,8 @@
               <td>{{ ticket.applicantName }}</td>
               <td>{{ ticket.description }}</td>
               <td>{{ ticket.category }}</td>
-              <td class="text-center">{{ ticket.createdDate | date : 'shortDate' }}</td>
+              <td>{{ ticket.applicantEmail }}</td>
+              <td class="text-center">{{ ticket.createdDate | date: 'dd/MM/yyyy' }}</td>
               <td>
                 <select
                   [(ngModel)]="ticket.assignedUserId"

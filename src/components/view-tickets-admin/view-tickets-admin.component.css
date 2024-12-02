@@ -108,11 +108,15 @@
 
 .tickets-table th:nth-child(7),
 .tickets-table td:nth-child(7){
-  width: 20%; /* Usuario*/
+  width: 5%; /* Usuario*/
 }
 
 .tickets-table th:nth-child(8),
 .tickets-table td:nth-child(8) {
+  width: 20%; /* Prioridad */
+}
+.tickets-table th:nth-child(9),
+.tickets-table td:nth-child(9) {
   width: 10%; /* Prioridad */
 }
 

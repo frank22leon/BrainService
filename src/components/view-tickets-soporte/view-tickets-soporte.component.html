@@ -17,6 +17,7 @@
                 <th scope="col">N Ticket</th>
                 <th scope="col">Título</th>
                 <th scope="col">Descripción</th>
+                <th scope="col">Correo</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Mensaje</th>
               </tr>
@@ -26,7 +27,8 @@
                 <td class="text-center fw-bolder">{{ ticket.ticketId }}</td>
                 <td>{{ ticket.title }}</td>
                 <td>{{ ticket.description }}</td>
-                <td>{{ ticket.createdDate | date: 'shortDate' }}</td>
+                <td>{{ ticket.applicantEmail }}</td>
+                <td>{{ ticket.createdDate | date: 'dd/MM/yyyy'}}</td>
                 <td>
                   <div *ngIf="status === 'En Progreso'">
                     <textarea

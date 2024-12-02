@@ -4,7 +4,6 @@ import { TicketService } from '../../service/ticket.service';
 import { NotificationService } from '../../service/notification.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-view-tickets-admin',
